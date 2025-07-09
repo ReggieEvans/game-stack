@@ -1,7 +1,6 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -72,17 +71,17 @@ export default function LoginPage() {
             {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
           </div>
 
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? 'Logging in...' : 'Log In'}
+          <Button type="submit" className="btn-primary" disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
           </Button>
         </form>
 
-        <p className="mt-4 text-center text-sm text-muted-foreground">
+        {/* <p className="mt-4 text-center text-sm text-muted-foreground">
           Don&apos;t have an account?{' '}
           <Link href="/signup" className="text-primary hover:underline">
             Sign up
           </Link>
-        </p>
+        </p> */}
       </CardContent>
     </Card>
   )

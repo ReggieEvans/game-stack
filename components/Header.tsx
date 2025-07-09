@@ -88,7 +88,7 @@ export default function Header({ userName, role }: HeaderProps) {
 
         {/* Brand */}
         <Link href="/" className="text-lg font-heading font-semibold uppercase">
-          <Image src="/images/logo-624-126.png" alt="Logo" width={256} height={52} priority />
+          <Image src="/images/logo-text-507-81.png" alt="Logo" width={300} height={26} priority />
         </Link>
       </div>
 
@@ -115,7 +115,7 @@ export default function Header({ userName, role }: HeaderProps) {
                   <ChevronDown className="w-4 h-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent align="end" className="hover:text-destructive">
                 <form method="POST" action="/api/auth/logout">
                   <DropdownMenuItem asChild>
                     <button type="submit" className="w-full text-left cursor-pointer">
@@ -132,9 +132,9 @@ export default function Header({ userName, role }: HeaderProps) {
             <Link href="/login" className="text-sm font-medium text-muted-foreground hover:underline">
               Login
             </Link>
-            <Link href="/signup" className="text-sm font-medium text-muted-foreground hover:underline">
+            {/* <Link href="/signup" className="text-sm font-medium text-muted-foreground hover:underline">
               Register
-            </Link>
+            </Link> */}
           </>
         )}
       </div>
