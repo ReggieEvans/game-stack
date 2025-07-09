@@ -37,21 +37,22 @@ export default function Header({ userName, role }: HeaderProps) {
               <Menu className="w-5 h-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="space-y-6 p-6">
+          <SheetContent side="left" className="space-y-12 p-6">
             <SheetHeader>
-              <SheetTitle>Menu</SheetTitle>
+              <SheetTitle>
+                <Image src="/images/logo-text-507-81.png" alt="Logo" width={300} height={26} priority />
+              </SheetTitle>
             </SheetHeader>
 
-            <div className="space-y-2">
+            <div className="space-y-4">
+              <Link href="/">Home</Link>
               {isAuthenticated ? (
                 links.map(({ href, label }) => (
                   <Link
                     key={href}
                     href={href}
                     onClick={() => setOpen(false)}
-                    className={`block text-sm font-medium ${
-                      pathname === href ? 'text-primary' : 'text-muted-foreground'
-                    }`}
+                    className={`block ${pathname === href ? 'text-primary' : 'text-muted-foreground'}`}
                   >
                     {label}
                   </Link>
@@ -104,7 +105,7 @@ export default function Header({ userName, role }: HeaderProps) {
                   pathname === href ? 'text-primary' : 'text-muted-foreground'
                 }`}
               >
-                {label}
+                <button className="btn-primary-round">{label}</button>
               </Link>
             ))}
             <ThemeToggle />
@@ -130,7 +131,7 @@ export default function Header({ userName, role }: HeaderProps) {
           <>
             <ThemeToggle />
             <Link href="/login" className="text-sm font-medium text-muted-foreground hover:underline">
-              Login
+              <button className="btn-primary-round">Login</button>
             </Link>
             {/* <Link href="/signup" className="text-sm font-medium text-muted-foreground hover:underline">
               Register
