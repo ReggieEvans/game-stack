@@ -13,7 +13,7 @@ export async function connectToDB() {
     console.log("Connecting to MongoDB...");
     cached.promise = mongoose
       .connect(process.env.MONGODB_URI!, {
-        dbName: "db_name",
+        dbName: "shame_stack",
       })
       .then((m) => m);
   }

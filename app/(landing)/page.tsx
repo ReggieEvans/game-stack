@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -5,10 +6,21 @@ import { Button } from "@/components/ui/button";
 export default function LandingPage() {
   return (
     <main className="min-h-screen bg-background text-foreground px-6 py-16">
-      <section className="max-w-5xl mx-auto text-center space-y-6">
-        <h1 className="text-4xl md:text-7xl font-header font-bold tracking-[8px]">
-          Next v15 Starter Template
-        </h1>
+      <section className="max-w-6xl mx-auto text-center space-y-6">
+        <Image
+          src="/images/logo-image-only-666-730.png"
+          alt="Next.js 15 Starter Template"
+          width={200}
+          height={200}
+          className="mx-auto"
+        />
+        <Image
+          src="/images/logo-text-491-74.png"
+          alt="Next.js 15 Starter Template"
+          width={603}
+          height={85}
+          className="mx-auto"
+        />
         <p className="text-lg text-muted-foreground max-w-xl mx-auto">
           A modern full-stack boilerplate with authentication, access control,
           styling, and testing built in — everything you need to launch fast.
