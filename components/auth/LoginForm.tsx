@@ -46,7 +46,7 @@ export default function LoginPage() {
 
     if (res.ok) {
       toast({ title: 'Logged in successfully' })
-      router.push('/home')
+      router.push('/my-library')
     } else {
       toast({
         title: 'Login failed',

@@ -1,28 +1,28 @@
-import "./globals.css";
+import './globals.css'
 
-import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import type { Metadata } from 'next'
+import { Roboto } from 'next/font/google'
 
-import { ThemeProvider } from "@/components/providers/theme-provider";
-import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from '@/components/providers/theme-provider'
+import { Toaster } from '@/components/ui/toaster'
 
 const roboto = Roboto({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-  weight: ["400", "500", "700"],
-});
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+  weight: ['400', '500', '700', '900'],
+})
 
 export const metadata: Metadata = {
-  title: "Next.js 15 Starter Template",
+  title: 'Next.js 15 Starter Template',
   description:
-    "Next.js 15 starter with auth, roles, MongoDB, dark mode, and ShadCN UI. Perfect for SaaS apps and dashboards.",
-};
+    'Next.js 15 starter with auth, roles, MongoDB, dark mode, and ShadCN UI. Perfect for SaaS apps and dashboards.',
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -33,5 +33,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
