@@ -8,10 +8,18 @@ interface GameProps {
   canSubmit?: boolean
   submitting?: { isSubmitting: boolean; index: number }
   handleAddGame: (game: GameType, index: number) => void
+  showOverlayOnHover?: boolean
   // add other props as needed
 }
 
-const Game: React.FC<GameProps> = ({ game, index, handleAddGame, canSubmit, submitting }) => {
+const Game: React.FC<GameProps> = ({
+  game,
+  index,
+  handleAddGame,
+  canSubmit,
+  submitting,
+  showOverlayOnHover = false,
+}) => {
   const cover = game.cover?.url.replace('t_thumb', 't_cover_big')
 
   const getRatingStyle = (rating: number): string => {
@@ -29,7 +37,7 @@ const Game: React.FC<GameProps> = ({ game, index, handleAddGame, canSubmit, subm
 
   return (
     <div className="flex flex-col w-[130px] text-sm py-1 hover:scale-105 transition-all duration-300">
-      <div className="relative">
+      <div className={`relative w-[130px] h-[173px] rounded-md ${showOverlayOnHover ? 'group' : ''}`}>
         <Image
           src={cover ? `https:${cover}` : '/assets/images/cover-not-found.png'}
           width={130}
@@ -38,6 +46,13 @@ const Game: React.FC<GameProps> = ({ game, index, handleAddGame, canSubmit, subm
           className="  rounded-lg"
           priority={index < 11}
         />
+        {/* Conditionally render overlay */}
+        {showOverlayOnHover && (
+          <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center rounded-md">
+            <span className="text-8xl text-primary">+</span>
+          </div>
+        )}
+
         <div className="absolute top-0 right-0 -mr-4 flex flex-col items-center">
           <div
             className={`flex justify-center items-center h-[28px] w-[28px] rounded-full mb-2 text-white font-bold text-md ${getRatingStyle(
