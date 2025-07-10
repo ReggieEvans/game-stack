@@ -10,11 +10,11 @@ import Game from '@/components/Game'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Button } from '@/components/ui/button'
-import { PopoverClose } from '@radix-ui/react-popover'
 
 import { initialState, libraryReducer, HoursState } from './hooks/useLibraryReducer'
 import ProgressCard from './components/ProgressCard'
 import FilterButton from './components/FilterButton'
+import { PopoverClose } from '@radix-ui/react-popover'
 
 const filterColors: Record<string, string> = {
   all: '',
