@@ -1,11 +1,15 @@
 import CopyText from '@/components/CopyText'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import UserProvider from '@/components/UserProvider'
+import { getUserFromToken } from '@/lib/getUserFromToken'
 import Image from 'next/image'
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+export default async function AuthLayout({ children }: { children: React.ReactNode }) {
+  const user = await getUserFromToken()
+
   return (
-    <>
+    <UserProvider user={user}>
       <Header />
       <main className="flex flex-col min-h-screen items-center bg-background px-4 mt-12">
         <div className="border border-border w-full max-w-md mb-12 rounded">
@@ -36,8 +40,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </main>
       <Footer />
-    </>
+    </UserProvider>
   )
 }
-
-export default Layout

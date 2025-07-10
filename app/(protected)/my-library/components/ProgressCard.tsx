@@ -43,7 +43,7 @@ export default function ProgressCard({
     <div className="flex flex-col bg-card py-2 px-4 mb-1 border border-border rounded-md w-1/2 text-white">
       <div className="flex justify-between pt-4 items-center">
         <div className="text-3xl font-bold slate_gradient">
-          {Math.round(percentage)}
+          {unit ? Math.round(percentage) : value}
           {unit && <span className="text-lg"> {unit}</span>} <span className="text-lg">{title}</span>
         </div>
         <div className="font-bold slate_gradient">
