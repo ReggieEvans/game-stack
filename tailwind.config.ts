@@ -16,6 +16,7 @@ export default {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        skeleton: 'var(--skeleton)',
         card: {
           DEFAULT: 'var(--card)',
           foreground: 'var(--card-foreground)',
@@ -42,6 +43,14 @@ export default {
         },
         border: 'var(--border)',
         input: 'var(--input)',
+        'completed-status': 'var(--completed-status)',
+        'pileofshame-status': 'var(--pileofshame-status)',
+        'inprogress-status': 'var(--inprogress-status)',
+        'quit-status': 'var(--quit-status)',
+        'color-great': 'var(--color-great)',
+        'color-good': 'var(--color-good)',
+        'color-okay': 'var(--color-okay)',
+        'color-bad': 'var(--color-bad)',
       },
     },
   },
