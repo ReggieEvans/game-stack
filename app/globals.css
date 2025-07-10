@@ -44,6 +44,8 @@
 
     --primary-foreground: #ffffff;
 
+    --skeleton: #e6e6e6;
+
     --muted: #f0f0f0;
 
     --muted-foreground: #b6b6b6;
@@ -63,6 +65,14 @@
     --color-okay: #ca8a04;
 
     --color-bad: #dc2828;
+
+    --inprogress-status: #38bdf8;
+
+    --completed-status: #fbbf24;
+
+    --quit-status: #e11d48;
+
+    --pileofshame-status: #ea580c;
   }
   .dark {
     /** Base colors */
@@ -97,6 +107,8 @@
 
     --primary-foreground: #ffffff;
 
+    --skeleton: #2a3243;
+
     --muted: #0f172a;
 
     --muted-foreground: #8d909b;
@@ -116,6 +128,14 @@
     --color-okay: #ca8a04;
 
     --color-bad: #dc2828;
+
+    --inprogress-status: #38bdf8;
+
+    --completed-status: #fbbf24;
+
+    --quit-status: #e11d48;
+
+    --pileofshame-status: #ea580c;
   }
 }
 
@@ -139,4 +159,29 @@
 
 .btn-primary-round {
   @apply bg-gradient-to-tr from-[#7D83FF] to-primary text-white py-2 px-8 rounded-full hover:brightness-90 transition-all duration-300;
+}
+
+.header_text {
+  @apply mt-5 text-4xl font-black leading-[1.15] text-black sm:text-6xl;
+}
+
+.slate_gradient {
+  @apply bg-gradient-to-b from-white to-slate-500 to-95% bg-clip-text text-transparent;
+}
+
+/* Animation  */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 1.2s ease-in-out infinite;
 }

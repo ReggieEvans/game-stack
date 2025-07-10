@@ -10,21 +10,18 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import ThemeToggle from '@/components/ui/theme-toggle'
+import { useUser } from '@/context/UserContext'
 
-type HeaderProps = {
-  userName?: string
-  role?: string
-}
-
-export default function Header({ userName, role }: HeaderProps) {
+export default function Header() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const user = useUser()
 
-  const isAuthenticated = !!userName
+  const isAuthenticated = !!user?.username
 
   const links = [
     { href: '/my-library', label: 'My Library' },
-    ...(role === 'admin' ? [{ href: '/admin', label: 'Admin' }] : []),
+    ...(user?.role === 'admin' ? [{ href: '/admin', label: 'Admin' }] : []),
   ]
 
   return (
@@ -102,17 +99,17 @@ export default function Header({ userName, role }: HeaderProps) {
                 key={href}
                 href={href}
                 className={`text-sm font-medium hover:underline ${
-                  pathname === href ? 'text-primary' : 'text-muted-foreground'
+                  pathname === href ? 'text-muted-foreground' : 'text-foreground'
                 }`}
               >
-                <button className="btn-primary-round">{label}</button>
+                {label}
               </Link>
             ))}
             <ThemeToggle />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="flex items-center gap-1 text-sm text-muted-foreground">
-                  {userName}
+                  {user.username}
                   <ChevronDown className="w-4 h-4" />
                 </Button>
               </DropdownMenuTrigger>

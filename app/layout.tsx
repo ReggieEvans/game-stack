@@ -5,6 +5,8 @@ import { Roboto } from 'next/font/google'
 
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { Toaster } from '@/components/ui/toaster'
+import { getUserFromToken } from '@/lib/getUserFromToken'
+import UserProvider from '@/components/UserProvider'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -19,16 +21,18 @@ export const metadata: Metadata = {
     'Next.js 15 starter with auth, roles, MongoDB, dark mode, and ShadCN UI. Perfect for SaaS apps and dashboards.',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const user = await getUserFromToken()
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${roboto.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <UserProvider user={user}>{children}</UserProvider>
           <Toaster />
         </ThemeProvider>
       </body>

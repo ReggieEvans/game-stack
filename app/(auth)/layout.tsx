@@ -1,15 +1,12 @@
 import CopyText from '@/components/CopyText'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import { getUserFromToken } from '@/lib/getUserFromToken'
 import Image from 'next/image'
 
-const Layout = async ({ children }: { children: React.ReactNode }) => {
-  const user = await getUserFromToken()
-
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <Header userName={user?.username} />
+      <Header />
       <main className="flex flex-col min-h-screen items-center bg-background px-4 mt-12">
         <div className="border border-border w-full max-w-md mb-12 rounded">
           <h2 className="font-black text-lg bg-destructive px-4 py-1 text-center rounded-t text-destructive-foreground">
