@@ -16,14 +16,6 @@ import ProgressCard from './components/ProgressCard'
 import FilterButton from './components/FilterButton'
 import { PopoverClose } from '@radix-ui/react-popover'
 
-const filterColors: Record<string, string> = {
-  all: '',
-  _isInProgress: 'bg-sky-400',
-  _isCompleted: 'bg-amber-400',
-  _isQuit: 'bg-rose-600',
-  _isPileOfShame: 'bg-orange-600',
-}
-
 const filterLabels: Record<string, string> = {
   all: 'ALL',
   _isInProgress: 'IN PROGRESS',
@@ -152,7 +144,6 @@ export default function MyLibraryPage() {
               key={key}
               label={label}
               filterKey={key}
-              colorClass={filterColors[key]}
               active={state.filterType === key}
               onClick={() => dispatch({ type: 'SET_FILTER', payload: key })}
             />
@@ -207,13 +198,7 @@ export default function MyLibraryPage() {
         ) : (
           sortedLibrary.map((game, i) => (
             <Link href={`/my-library/${game._id}`} key={game._id}>
-              <Game
-                index={i}
-                game={game}
-                handleAddGame={() => null}
-                canSubmit={false}
-                submitting={{ isSubmitting: false, index: i }}
-              />
+              <Game index={i} game={game} handleAddGame={() => null} submitting={{ isSubmitting: false, index: i }} />
             </Link>
           ))
         )}

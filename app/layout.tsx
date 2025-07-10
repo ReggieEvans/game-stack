@@ -5,8 +5,6 @@ import { Roboto } from 'next/font/google'
 
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { Toaster } from '@/components/ui/toaster'
-import { getUserFromToken } from '@/lib/getUserFromToken'
-import UserProvider from '@/components/UserProvider'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -26,13 +24,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const user = await getUserFromToken()
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${roboto.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <UserProvider user={user}>{children}</UserProvider>
+          {children}
           <Toaster />
         </ThemeProvider>
       </body>
