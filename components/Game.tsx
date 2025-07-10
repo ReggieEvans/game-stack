@@ -1,25 +1,17 @@
 import Image from 'next/image'
 import { Game as GameType } from '@/types/game'
-import { Award, PlusCircle } from 'lucide-react'
+import { Award, Hourglass } from 'lucide-react'
 
 interface GameProps {
   game: GameType
   index: number
-  canSubmit?: boolean
-  submitting?: { isSubmitting: boolean; index: number }
+  submitting?: { isSubmitting: boolean; index: number | null }
   handleAddGame: (game: GameType, index: number) => void
   showOverlayOnHover?: boolean
   // add other props as needed
 }
 
-const Game: React.FC<GameProps> = ({
-  game,
-  index,
-  handleAddGame,
-  canSubmit,
-  submitting,
-  showOverlayOnHover = false,
-}) => {
+const Game: React.FC<GameProps> = ({ game, index, handleAddGame, submitting, showOverlayOnHover = false }) => {
   const cover = game.cover?.url.replace('t_thumb', 't_cover_big')
 
   const getRatingStyle = (rating: number): string => {
@@ -43,14 +35,24 @@ const Game: React.FC<GameProps> = ({
           width={130}
           height={173}
           alt="Video Game Cover"
-          className="  rounded-lg"
+          className=" rounded-lg"
           priority={index < 11}
         />
         {/* Conditionally render overlay */}
         {showOverlayOnHover && (
-          <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center rounded-md">
-            <span className="text-8xl text-primary">+</span>
-          </div>
+          <button
+            className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center rounded-md"
+            onClick={() => handleAddGame(game, index)}
+            disabled={submitting?.isSubmitting && submitting.index === index}
+          >
+            {submitting?.isSubmitting && submitting.index === index ? (
+              <span className="text-8xl text-white animate-spin">
+                <Hourglass />
+              </span>
+            ) : (
+              <span className="text-8xl text-white">+</span>
+            )}
+          </button>
         )}
 
         <div className="absolute top-0 right-0 -mr-4 flex flex-col items-center">
@@ -91,17 +93,6 @@ const Game: React.FC<GameProps> = ({
         <div className="flex flex-col">
           <p className="font-medium">{game.name}</p>
         </div>
-        {canSubmit && (
-          <div>
-            {submitting?.isSubmitting && submitting?.index === index ? (
-              <p>Submitting</p>
-            ) : (
-              <button className="px-2 mt-1" onClick={() => handleAddGame(game, index)}>
-                <PlusCircle className="text-xl text-primary" />
-              </button>
-            )}
-          </div>
-        )}
       </div>
     </div>
   )

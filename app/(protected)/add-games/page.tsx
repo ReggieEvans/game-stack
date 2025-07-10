@@ -3,7 +3,7 @@
 import Game from '@/components/Game'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useUser } from '@/context/UserContext'
-import { useToast } from '@/hooks/use-toast' // Import your custom useToast hook
+import { useToast } from '@/hooks/use-toast'
 import { Game as GameType } from '@/types/game'
 import { CircleArrowLeft } from 'lucide-react'
 import Link from 'next/link'
@@ -62,9 +62,7 @@ const AddGames = () => {
     }
   }, [])
 
-  interface SearchChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
-
-  const handleSearchChange = (e: SearchChangeEvent): void => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (searchTimeout) {
       clearTimeout(searchTimeout)
     }
@@ -78,17 +76,10 @@ const AddGames = () => {
     )
   }
 
-  interface SubmittingState {
-    isSubmitting: boolean
-    index: number | null
-  }
-
-  interface HandleAddGame {
+  const handleAddGame: {
     (game: GameType, i: number): Promise<void>
-  }
-
-  const handleAddGame: HandleAddGame = async (game, i) => {
-    setIsSubmitting((prevState: SubmittingState) => ({
+  } = async (game, i) => {
+    setIsSubmitting((prevState: { isSubmitting: boolean; index: number | null }) => ({
       ...prevState,
       isSubmitting: true,
       index: i,
@@ -115,7 +106,7 @@ const AddGames = () => {
       } else {
         // Success
         toast({
-          title: 'Game Added! 🎉',
+          title: 'Game Added! 👍',
           description: data.message ?? 'Game added successfully to your library.',
           variant: 'default',
         })
@@ -127,7 +118,7 @@ const AddGames = () => {
         variant: 'destructive',
       })
     } finally {
-      setIsSubmitting((prevState: SubmittingState) => ({
+      setIsSubmitting((prevState: { isSubmitting: boolean; index: number | null }) => ({
         ...prevState,
         isSubmitting: false,
         index: null,
@@ -180,8 +171,7 @@ const AddGames = () => {
                 index={i}
                 game={game}
                 handleAddGame={() => null}
-                canSubmit={false}
-                submitting={{ isSubmitting: false, index: i }}
+                submitting={submitting}
                 showOverlayOnHover={true}
               />
             </button>
