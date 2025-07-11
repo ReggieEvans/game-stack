@@ -35,3 +35,44 @@ export const GET = async (_req: Request, context: { params: Params }) => {
     return new Response('Internal Server Error', { status: 500 })
   }
 }
+
+// @desc    Update User Game
+// @route   PATCH /api/games/:id
+export const PATCH = async (req: Request, context: { params: Params }) => {
+  const { userId, status } = await req.json()
+  const params = await context.params
+
+  try {
+    await connectToDB()
+    const game = await Game.findOne({ user: userId, _id: params.id })
+    const currentStatus = game[status]
+
+    await Game.findByIdAndUpdate(game._id, {
+      [status]: !currentStatus,
+    })
+    const updatedGame = await Game.findById({ _id: game._id })
+
+    return new Response(JSON.stringify(updatedGame), { status: 200 })
+  } catch {
+    return new Response('Something went wrong. Failed to fetch library.', {
+      status: 500,
+    })
+  }
+}
+
+// @desc    Delete User Game
+// @route   DELETE /api/games/:id
+export const DELETE = async (_req: Request, context: { params: Params }) => {
+  const params = await context.params
+
+  try {
+    await connectToDB()
+    await Game.findByIdAndDelete(params.id)
+
+    return new Response('Game deleted successfully!', { status: 200 })
+  } catch {
+    return new Response('Something went wrong. Failed to delete from library.', {
+      status: 500,
+    })
+  }
+}
