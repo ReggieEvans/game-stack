@@ -8,7 +8,7 @@ export default function LandingPage() {
           Track & Manage <br className="max-md:hidden" /> <span className="text-center">Your Video Game Backlog</span>
         </h1>
         <p className="text-center text-lg py-8 px-2 text-slate-400">
-          ShameStack is a visual tracking tool for managing, organizing and completing your unbeaten video games.
+          Game Stack is a visual tracking tool for managing, organizing and completing your unbeaten video games.
         </p>
 
         <div className="mt-12">

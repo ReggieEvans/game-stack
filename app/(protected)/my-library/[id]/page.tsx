@@ -41,17 +41,6 @@ export default function GameDetailsPage() {
     toggleDropdown: false,
   })
 
-  const fetchGame = useCallback(async () => {
-    setState(prevState => ({ ...prevState, isLoading: true }))
-    try {
-      const res = await fetch(`/api/games/${params.id}`)
-      const data = await res.json()
-      setState(prevState => ({ ...prevState, game: data, isLoading: false }))
-    } catch (e) {
-      showErrorToast(e)
-    }
-  }, [params.id])
-
   const handleStatus = async (status: string, gameId: string) => {
     setState(prevState => ({
       ...prevState,
@@ -141,21 +130,38 @@ export default function GameDetailsPage() {
     }))
   }
 
-  const showErrorToast = (error: unknown) => {
-    toast({
-      title: 'Something went wrong! 👎',
-      description: error instanceof Error ? error.message : 'An unknown error occurred',
-      variant: 'destructive',
-    })
-  }
+  const showErrorToast = useCallback(
+    (error: unknown) => {
+      toast({
+        title: 'Something went wrong! 👎',
+        description: error instanceof Error ? error.message : 'An unknown error occurred',
+        variant: 'destructive',
+      })
+    },
+    [toast],
+  )
 
-  const showSuccessToast = (message: string) => {
-    toast({
-      title: message,
-      description: '',
-      variant: 'default',
-    })
-  }
+  const showSuccessToast = useCallback(
+    (message: string) => {
+      toast({
+        title: message,
+        description: '',
+        variant: 'default',
+      })
+    },
+    [toast],
+  )
+
+  const fetchGame = useCallback(async () => {
+    setState(prevState => ({ ...prevState, isLoading: true }))
+    try {
+      const res = await fetch(`/api/games/${params.id}`)
+      const data = await res.json()
+      setState(prevState => ({ ...prevState, game: data, isLoading: false }))
+    } catch (e) {
+      showErrorToast(e)
+    }
+  }, [params.id, showErrorToast])
 
   useEffect(() => {
     fetchGame()

@@ -14,9 +14,9 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: 'Shame Stack | Track Your Gaming Library',
+  title: 'Game Stack | Track Your Gaming Library',
   description:
-    'Shame Stack is a tool for tracking your gaming library. It helps you manage your gaming backlog and celebrate completed games.',
+    'Game Stack is a tool for tracking your gaming library. It helps you manage your gaming backlog and celebrate completed games.',
 }
 
 export default async function RootLayout({
