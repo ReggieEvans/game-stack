@@ -3,10 +3,11 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Game as GameType } from '@/types/game'
 import { CircleEllipsis } from 'lucide-react'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import GameActions from './GameActions'
 import { getCompletionHours, getRatingStyle, getRatingText } from '@/lib/utils'
 import ScreenshotModal from './ScreenshotModal'
+import { useMediaQuery } from '@/hooks/use-media-query'
 
 export default function GameSummary({
   game,
@@ -29,8 +30,23 @@ export default function GameSummary({
     _delete: boolean
   }
 }) {
+  const [popoverOpen, setPopoverOpen] = useState(false)
+  const isMobile = useMediaQuery('(max-width: 768px)')
+  const wasOpenRef = useRef(false)
+
   const companies = game?.involved_companies?.map(c => c.company.name).join(', ')
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+
+  // Mobile Popover Shenanigans
+  useEffect(() => {
+    if (wasOpenRef.current) {
+      setPopoverOpen(false)
+    }
+  }, [isMobile])
+
+  useEffect(() => {
+    wasOpenRef.current = popoverOpen
+  }, [popoverOpen])
 
   return (
     <div className="flex flex-col gap-4 mt-2 md:mt-8">
@@ -41,7 +57,7 @@ export default function GameSummary({
           <div className="text-sm text-white">{companies}</div>
           <div className="text-sm text-white">Hours to complete: {getCompletionHours(game)}</div>
         </div>
-        <Popover>
+        <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
           <PopoverTrigger asChild>
             <Button variant="outline">
               <CircleEllipsis />
@@ -50,8 +66,14 @@ export default function GameSummary({
           <PopoverContent className="w-50">
             <GameActions
               game={game}
-              handleStatus={handleStatus}
-              handleDelete={handleDelete}
+              handleStatus={(status, id) => {
+                handleStatus(status, id)
+                setPopoverOpen(false)
+              }}
+              handleDelete={id => {
+                handleDelete(id)
+                setPopoverOpen(false)
+              }}
               isHiddenOnMobile={false}
               submittingState={submittingState}
             />
