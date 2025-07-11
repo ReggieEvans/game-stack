@@ -1,18 +1,21 @@
 'use client'
 
+import React from 'react'
 import { Game as GameType } from '@/types/game'
-import { CheckSquare, Clock, Loader, PlayCircle, Skull, Trash2 } from 'lucide-react'
+import { CheckSquare, Loader, Skull, Square, Trash2 } from 'lucide-react'
 
 export default function GameActions({
   game,
   handleStatus,
   handleDelete,
+  setShowAddHoursModal,
   isHiddenOnMobile,
   submittingState,
 }: {
   game: GameType
   handleStatus: (status: string, id: string) => void
   handleDelete: (id: string) => void
+  setShowAddHoursModal: (value: boolean) => void
   isHiddenOnMobile: boolean
   submittingState: {
     _isInProgress: boolean
@@ -25,26 +28,31 @@ export default function GameActions({
   // Reusable button for each action
   const ActionButton = ({
     label,
-    icon: Icon,
-    statusKey,
     onClick,
     isSubmitting,
+    isChecked,
+    specialIcon,
   }: {
     label: string
-    icon: React.ComponentType
-    statusKey: string
     onClick: () => void
     isSubmitting: boolean
+    isChecked: boolean
+    specialIcon?: React.ComponentType // Prop to allow passing a unique icon for special cases
   }) => (
-    <button className="game_action_btn" onClick={onClick} disabled={isSubmitting}>
+    <button className="game_action_btn text-white" onClick={onClick} disabled={isSubmitting}>
       <div className="flex gap-2 items-center">
         {isSubmitting ? (
           <span className="animate-spin">
             <Loader size={16} />
           </span>
+        ) : specialIcon ? (
+          // @ts-expect-error: specialIcon is a React component
+          React.createElement(specialIcon, { size: 16, fill: 'white', stroke: 'red' })
+        ) : isChecked ? (
+          // Render empty or checked square depending on `isChecked`
+          <CheckSquare size={16} className="text-green-400" />
         ) : (
-          // @ts-ignore
-          <Icon size={16} />
+          <Square size={16} />
         )}{' '}
         {isSubmitting ? 'Processing...' : label}
       </div>
@@ -56,37 +64,34 @@ export default function GameActions({
       {/* Add Hours Button */}
       <ActionButton
         label="Add Hours"
-        icon={Clock}
-        statusKey="_hours"
-        onClick={() => handleStatus('_hours', game._id)}
+        onClick={() => setShowAddHoursModal(true)}
         isSubmitting={submittingState['_hours']}
+        isChecked={game._gameplayHours.gameplayMain > 0}
       />
 
       {/* Start Playing Button */}
       <ActionButton
-        label={game._isInProgress ? 'Stop Playing' : 'Start Playing!'}
-        icon={PlayCircle}
-        statusKey="_isInProgress"
+        label={game._isInProgress ? 'In Progress!' : 'Start Playing'}
         onClick={() => handleStatus('_isInProgress', game._id)}
         isSubmitting={submittingState['_isInProgress']}
+        isChecked={game._isInProgress}
       />
 
       {/* I Beat It Button */}
       <ActionButton
-        label={game._isCompleted ? 'Not Beaten' : 'I Beat It!'}
-        icon={CheckSquare}
-        statusKey="_isCompleted"
+        label={game._isCompleted ? 'I Beat It!' : 'Complete'}
         onClick={() => handleStatus('_isCompleted', game._id)}
         isSubmitting={submittingState['_isCompleted']}
+        isChecked={game._isCompleted}
       />
 
       {/* I Quit Button */}
       <ActionButton
-        label={game._isQuit ? 'Try Again' : 'I Quit!'}
-        icon={Skull}
-        statusKey="_isQuit"
+        label={game._isQuit ? 'Try Again?' : 'Quit'}
         onClick={() => handleStatus('_isQuit', game._id)}
         isSubmitting={submittingState['_isQuit']}
+        isChecked={game._isQuit}
+        specialIcon={Skull}
       />
 
       {/* Delete Button */}
@@ -95,7 +100,7 @@ export default function GameActions({
         onClick={() => handleDelete(game._id)}
         disabled={submittingState['_delete']}
       >
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center text-white">
           {submittingState['_delete'] ? (
             <span className="animate-spin">
               <Loader size={16} />

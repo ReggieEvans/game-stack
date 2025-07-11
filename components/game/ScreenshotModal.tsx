@@ -20,7 +20,11 @@ export default function ScreenshotModal({
   return (
     <Dialog open onOpenChange={close}>
       <DialogTitle className="sr-only">Screenshot {selectedIndex + 1}</DialogTitle>
-      <DialogContent className="bg-transparent border-none shadow-none p-0 max-w-5xl animate-scale-fade-in">
+      <DialogContent
+        className="bg-transparent border-none shadow-none p-0 max-w-5xl animate-scale-fade-in"
+        aria-labelledby="Screenshot Modal"
+        aria-describedby="Game Screenshot Modal"
+      >
         <div className="relative flex items-center justify-center">
           <button onClick={prev} className="absolute left-4 text-white p-2 hover:bg-white/20 rounded-full">
             <ArrowBigLeft />

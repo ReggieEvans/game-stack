@@ -137,7 +137,7 @@ const AddGames = () => {
         <CircleArrowLeft size={16} className="mr-2" /> Back to Library
       </Link>
       <h1 className="head_text text-left mb-4">
-        <span className="slate_gradient header_text">ADD GAMES</span>
+        <span className="dark_gradient dark:slate_gradient header_text">ADD GAMES</span>
       </h1>
       <div className="relative w-full flex-center">
         <input

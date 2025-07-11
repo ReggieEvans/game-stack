@@ -44,8 +44,10 @@ export default function FilterButton({ label, filterKey, active, onClick }: Filt
       type="button"
       aria-label={`Filter by ${filterKey}`}
       onClick={onClick}
-      className={`flex gap-2 items-center bg-gradient-to-r hover:brightness-110 text-white px-2 py-1 rounded-full min-w-[75px] font-medium mr-4 mb-2 ${
-        active ? 'from-primary to-primary' : 'from-transparent to-transparent border border-primary brightness-50'
+      className={`flex gap-2 items-center hover:brightness-110 text-foreground px-2 py-1 rounded-full min-w-[75px] font-medium mr-4 mb-2 ${
+        active
+          ? 'bg-primary text-white'
+          : 'bg-white border border-primary dark:bg-transparent opacity-50 hover:opacity-100'
       }`}
     >
       <div className={`h-[10px] w-[10px] rounded-full mb-[2px] ${colorClass}`} />
