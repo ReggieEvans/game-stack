@@ -12,16 +12,28 @@ export default function GameSummary({
   game,
   summary,
   screenshots,
+  handleStatus,
+  handleDelete,
+  submittingState,
 }: {
   game: GameType
   summary: string
   screenshots: { url: string }[]
+  handleStatus: (status: string, id: string) => void
+  handleDelete: (id: string) => void
+  submittingState: {
+    _isInProgress: boolean
+    _isCompleted: boolean
+    _isQuit: boolean
+    _hours: boolean
+    _delete: boolean
+  }
 }) {
   const companies = game?.involved_companies?.map(c => c.company.name).join(', ')
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
 
   return (
-    <div className="flex flex-col gap-4 mt-2 md:mt-8 px-4">
+    <div className="flex flex-col gap-4 mt-2 md:mt-8">
       {/* Game Title Mobile  */}
       <div className="flex justify-between gap-4 items-start md:hidden mt-8 border-b border-border pb-4">
         <div className="flex flex-col gap-1">
@@ -35,8 +47,14 @@ export default function GameSummary({
               <CircleEllipsis />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-60">
-            <GameActions game={game} isHiddenOnMobile={false} />
+          <PopoverContent className="w-50">
+            <GameActions
+              game={game}
+              handleStatus={handleStatus}
+              handleDelete={handleDelete}
+              isHiddenOnMobile={false}
+              submittingState={submittingState}
+            />
           </PopoverContent>
         </Popover>
       </div>
