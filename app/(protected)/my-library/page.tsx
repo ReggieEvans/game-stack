@@ -11,9 +11,9 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Button } from '@/components/ui/button'
 
-import { initialState, libraryReducer, HoursState } from './hooks/useLibraryReducer'
-import ProgressCard from './components/ProgressCard'
-import FilterButton from './components/FilterButton'
+import { initialState, libraryReducer, HoursState } from '../../../hooks/useLibraryReducer'
+import ProgressCard from '@/components/library/ProgressCard'
+import FilterButton from '@/components/library/FilterButton'
 import { PopoverClose } from '@radix-ui/react-popover'
 
 const filterLabels: Record<string, string> = {
@@ -97,18 +97,18 @@ export default function MyLibraryPage() {
   return (
     <section className="w-full">
       <div className="w-full flex justify-between items-center">
-        <h1 className="head_text text-left mb-2">
+        <h1 className="head_text text-left sm:mb-2">
           <span className="slate_gradient header_text">MY LIBRARY</span>
         </h1>
         <Link href="/add-games">
           <button type="button" aria-label="Add a game" className="flex gap-2 btn-primary-round font-bold">
-            <Plus size="20" className="mb-[2px]" /> Add Game
+            <Plus size="20" className="mb-[2px]" /> <span className="hidden sm:block">Add Game</span>
           </button>
         </Link>
       </div>
 
       {/* Progress Bars */}
-      <div className="rounded-md text-white flex gap-4 w-full mb-4">
+      <div className="rounded-md text-white flex flex-col md:flex-row gap-4 w-full mb-4">
         {hasMounted ? (
           <>
             <ProgressCard
@@ -198,7 +198,7 @@ export default function MyLibraryPage() {
         ) : (
           sortedLibrary.map((game, i) => (
             <Link href={`/my-library/${game._id}`} key={game._id}>
-              <Game index={i} game={game} handleAddGame={() => null} submitting={{ isSubmitting: false, index: i }} />
+              <Game index={i} game={game} />
             </Link>
           ))
         )}

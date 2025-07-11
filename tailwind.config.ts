@@ -7,6 +7,7 @@ export default {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './lib/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -47,10 +48,25 @@ export default {
         'pileofshame-status': 'var(--pileofshame-status)',
         'inprogress-status': 'var(--inprogress-status)',
         'quit-status': 'var(--quit-status)',
+        'color-amazing': 'var(--color-amazing)',
         'color-great': 'var(--color-great)',
         'color-good': 'var(--color-good)',
         'color-okay': 'var(--color-okay)',
         'color-bad': 'var(--color-bad)',
+      },
+      keyframes: {
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        'scale-fade-in': {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+      },
+      animation: {
+        'fade-in': 'fade-in 0.25s ease-out forwards',
+        'scale-fade-in': 'scale-fade-in 0.25s ease-out forwards',
       },
     },
   },

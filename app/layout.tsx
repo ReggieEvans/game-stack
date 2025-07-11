@@ -14,9 +14,9 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: 'Next.js 15 Starter Template',
+  title: 'Shame Stack | Track Your Gaming Library',
   description:
-    'Next.js 15 starter with auth, roles, MongoDB, dark mode, and ShadCN UI. Perfect for SaaS apps and dashboards.',
+    'Shame Stack is a tool for tracking your gaming library. It helps you manage your gaming backlog and celebrate completed games.',
 }
 
 export default async function RootLayout({

@@ -6,21 +6,21 @@ interface GameProps {
   game: GameType
   index: number
   submitting?: { isSubmitting: boolean; index: number | null }
-  handleAddGame: (game: GameType, index: number) => void
   showOverlayOnHover?: boolean
-  // add other props as needed
 }
 
-const Game: React.FC<GameProps> = ({ game, index, handleAddGame, submitting, showOverlayOnHover = false }) => {
+export default function Game({ game, index, submitting, showOverlayOnHover = false }: GameProps) {
   const cover = game.cover?.url.replace('t_thumb', 't_cover_big')
 
   const getRatingStyle = (rating: number): string => {
     switch (true) {
-      case rating >= 95:
+      case rating >= 94.6:
         return 'bg-purple-600'
-      case rating >= 80:
-        return 'bg-green-600'
-      case rating >= 70:
+      case rating >= 84.6:
+        return 'bg-green-700'
+      case rating >= 79.6:
+        return 'bg-lime-600'
+      case rating >= 69.6:
         return 'bg-yellow-600'
       default:
         return 'bg-red-600'
@@ -28,7 +28,7 @@ const Game: React.FC<GameProps> = ({ game, index, handleAddGame, submitting, sho
   }
 
   return (
-    <div className="flex flex-col w-[130px] text-sm py-1 hover:scale-105 transition-all duration-300">
+    <div className="flex flex-col w-[130px] text-sm py-1 hover:scale-105 transition-all duration-300 ">
       <div className={`relative w-[130px] h-[173px] rounded-md ${showOverlayOnHover ? 'group' : ''}`}>
         <Image
           src={cover ? `https:${cover}` : '/assets/images/cover-not-found.png'}
@@ -40,11 +40,7 @@ const Game: React.FC<GameProps> = ({ game, index, handleAddGame, submitting, sho
         />
         {/* Conditionally render overlay */}
         {showOverlayOnHover && (
-          <button
-            className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center rounded-md"
-            onClick={() => handleAddGame(game, index)}
-            disabled={submitting?.isSubmitting && submitting.index === index}
-          >
+          <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center rounded-md">
             {submitting?.isSubmitting && submitting.index === index ? (
               <span className="text-8xl text-white animate-spin">
                 <Hourglass />
@@ -52,7 +48,7 @@ const Game: React.FC<GameProps> = ({ game, index, handleAddGame, submitting, sho
             ) : (
               <span className="text-8xl text-white">+</span>
             )}
-          </button>
+          </div>
         )}
 
         <div className="absolute top-0 right-0 -mr-4 flex flex-col items-center">
@@ -97,5 +93,3 @@ const Game: React.FC<GameProps> = ({ game, index, handleAddGame, submitting, sho
     </div>
   )
 }
-
-export default Game
