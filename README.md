@@ -79,19 +79,25 @@ Open http://localhost:3000 to view the app.
 /
 ├── app/                # Next.js route handlers & pages
 ├── components/         # Reusable UI components
+├── context/            # User Context
+├── hooks/              # Custom Hooks
 ├── lib/                # Helpers, utilities, validation schemas
 ├── models/             # Mongoose models
 ├── public/             # Static assets
+├── types/              # Type Checking
 ```
 
 ## 🖼️ Screenshots
 
 ![Landing Page](/public/images/screenshots/gamestack-screenshot-4.png)
 Landing Page
+
 ![The San Juan Mountains are beautiful!](/public/images/screenshots/gamestack-screenshot-1.png)
 Library Page
+
 ![The San Juan Mountains are beautiful!](/public/images/screenshots/gamestack-screenshot-2.png)
 Game Details
+
 ![The San Juan Mountains are beautiful!](/public/images/screenshots/gamestack-screenshot-3.png)
 Fully Responsive
 
@@ -103,8 +109,8 @@ Originally scaffolded from my modern [Next.js starter with custom auth and UI th
 
 ## 👨‍💻 Author
 
-Made with 💪 by Reggie Evans
-📫 [revans911@gmail.com]
+Made with 💪 by Reggie Evans  
+📫 [revans911@gmail.com]  
 🌐 [reggieevans.me]
 
 ## 📝 License
