@@ -32,7 +32,7 @@ export type Screenshots = {
 
 export type InvolvedCompanies = {
   id: number
-  company: object
+  company: { name: string }
   _id: string
 }
 

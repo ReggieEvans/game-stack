@@ -167,13 +167,7 @@ const AddGames = () => {
         ) : (
           games.map((game, i) => (
             <button key={game.id} onClick={() => handleAddGame(game, i)} className="group">
-              <Game
-                index={i}
-                game={game}
-                handleAddGame={() => null}
-                submitting={submitting}
-                showOverlayOnHover={true}
-              />
+              <Game index={i} game={game} submitting={submitting} showOverlayOnHover={true} />
             </button>
           ))
         )}

@@ -1,13 +1,11 @@
-// @desc    Get User Games from Library
-
 import { connectToDB } from '@/lib/mongodb'
 import Game from '@/models/Game'
 
-// @route   GET /api/games/:id/all
 interface Params {
   id: string
 }
 
+// @route   GET /api/games/:id/all
 export async function GET(req: Request, context: { params: Params }) {
   const params = await context.params
 
