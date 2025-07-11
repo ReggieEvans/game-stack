@@ -1,121 +1,112 @@
-# ⚡ Next.js 15 Full-Stack Starter Template
+# 🎮 Game Stack – Fullstack Game Library Tracker
 
-A modern full-stack boilerplate powered by Next.js 15 (App Router), designed for building scalable web apps fast — with built-in authentication, theming, role-based access control, and testing.
+A full-stack, modern web app for managing your personal game library. Built with the latest in Next.js (App Router), MongoDB, and Tailwind CSS — with authentication, game tracking, theming, and responsive UI out of the box.
 
-![screenshot][product-screenshot-1]
+> ✅ **Demo Ready. Developer Friendly. Production Capable.**
 
 ---
 
 ## ✨ Features
 
-### ✅ Authentication & Authorization
+### 🎯 Game Library Tracker
 
-- Email + password authentication
-- JWT token-based sessions (HttpOnly cookies)
-- Role-based access (e.g. admin, user)
-- Middleware-protected routes
+- Add and manage games in your personal library
+- Track hours played, completion status, and more
+- View game summaries and screenshots
 
-### 🎨 Styling & Theming
+### 🔐 Auth & User Sessions
 
-- Tailwind CSS with dark/light mode (system default)
-- Theme toggle dropdown (light / dark / system)
-- Custom Google + local fonts
-- Configurable color palette via CSS variables
+- Secure email/password login
+- JWT authentication via HttpOnly cookies
+- Role-based access support
 
-### 🧠 Developer Experience
+### 🛠 Built for Devs
 
-- App Router (Next.js 14)
-- TypeScript, Zod, React Hook Form
-- Path aliases (`@/`) for cleaner imports
-- File-based routing with layout support
+- Next.js 15 App Router + TypeScript
+- MongoDB with Mongoose for data modeling
+- Tailwind CSS + dark/light theme support
+- Reusable shadcn/ui components
+- Form validation with Zod + React Hook Form
+- Path aliases (`@/`) for clean imports
 
-### 🧪 Testing
+---
 
-- ✅ Jest + React Testing Library for unit tests
-- ✅ Cypress for end-to-end testing
-- `start-server-and-test` script for seamless E2E flow
+## 🧱 Tech Stack
 
-### 📦 Full Stack Integration
-
-- MongoDB + Mongoose
-- Password hashing with bcrypt
-- Secure password reset via token
-- Toast notifications using ShadCN
+- **Framework**: Next.js 15 (App Router)
+- **Database**: MongoDB + Mongoose
+- **Auth**: JSON Web Tokens (JWT) + bcrypt
+- **Styling**: Tailwind CSS, shadcn/ui
+- **Forms**: React Hook Form + Zod
+- **Icons**: Lucide
+- **Type Checking**: TypeScript
 
 ---
 
 ## 🚀 Getting Started
 
+### 1. Install Dependencies
+
 ```bash
-# 1. Clone the repo
-git clone https://github.com/your-username/nextjs-starter.git
-cd nextjs-starter
-
-# 2. Install dependencies
 npm install
+```
 
-# 3. Add your environment variables
-cp .env.example .env.local
-# Edit MONGO_URI and JWT_SECRET
+### 2. Create Environment File
 
-# 4. Run the dev server
+```bash
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+```
+
+You'll also need an API key from IGDB. You can start [here](https://api-docs.igdb.com/#getting-started).
+
+```bash
+IGDB_CLIENT_ID=your_igdb_client_id
+IGDB_CLIENT_SECRET=your_igdb_client_secret
+```
+
+### 3. Run Dev Server
+
+```bash
 npm run dev
 ```
 
-Open http://localhost:3000 in your browser.
+Open http://localhost:3000 to view the app.
 
----
-
-## 🧪 Run Tests
+## 🏗️ Project Structure
 
 ```bash
-npm run test
+/
+├── app/                # Next.js route handlers & pages
+├── components/         # Reusable UI components
+├── lib/                # Helpers, utilities, validation schemas
+├── models/             # Mongoose models
+├── public/             # Static assets
 ```
 
----
+## 🖼️ Screenshots
 
-## ✅ E2E Tests (Cypress)
+![Landing Page](/public/images/screenshots/gamestack-screenshot-4.png)
+Landing Page
+![The San Juan Mountains are beautiful!](/public/images/screenshots/gamestack-screenshot-1.png)
+Library Page
+![The San Juan Mountains are beautiful!](/public/images/screenshots/gamestack-screenshot-2.png)
+Game Details
+![The San Juan Mountains are beautiful!](/public/images/screenshots/gamestack-screenshot-3.png)
+Fully Responsive
 
-```bash
-npm run test:e2e
-```
+## 📌 About This Repo
 
----
+This project is both a developer playground and a portfolio piece. It showcases full-stack development using cutting-edge tools in a way that's clean, scalable, and extensible.
 
-## 🛠 Folder Structure
+Originally scaffolded from my modern [Next.js starter with custom auth and UI theming](https://github.com/ReggieEvans/nextjs-starter-template).
 
-```bash
-/app            # Next.js App Router structure
-/components     # Reusable UI components (ShadCN)
-/cypress        # Cypress E2E Testing
-/models         # DB Models (e.g., User)
-/lib            # JWT, DB, auth utilities
-/hooks          # Custom hooks (e.g., use-toast)
-app/api         # API routes for auth/reset
-/public         # Static files (e.g. logo, images)
-/types          # Typescript Type Definitions
-```
+## 👨‍💻 Author
 
----
+Made with 💪 by Reggie Evans
+📫 [revans911@gmail.com]
+🌐 [reggieevans.me]
 
-## 🛡️ Environment Variables
+## 📝 License
 
-```bash
-MONGO_URI=<your-mongodb-uri>
-JWT_SECRET=<your-secret>
-RESEND_API_KEY=<resend-api-key>
-```
-
----
-
-## 📄 License
-
-MIT — free for personal and commercial use.
-
----
-
-## 👋 Author
-
-Built with ❤️ by Reggie Evans
-
-[product-screenshot-1]: public/screenshot-1.png
+MIT – use it freely.
