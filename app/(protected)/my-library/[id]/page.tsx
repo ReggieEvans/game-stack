@@ -11,6 +11,13 @@ import GameActions from '@/components/game/GameActions'
 import GameSummary from '@/components/game/GameSummary'
 import GameHeader from '@/components/game/GameHeader'
 import { useUser } from '@/context/UserContext'
+import AddHoursModal from '@/components/game/AddHoursModal'
+
+const statusLabels: { [key: string]: string } = {
+  _isInProgress: 'In-Progress',
+  _isCompleted: 'Completion',
+  _isQuit: 'Quit',
+}
 
 export default function GameDetailsPage() {
   const { toast } = useToast()
@@ -30,7 +37,7 @@ export default function GameDetailsPage() {
     },
     hourOptions: [],
     isLoadingHourOptions: false,
-    showAddHours: false,
+    showAddHoursModal: false,
     toggleDropdown: false,
   })
 
@@ -60,7 +67,12 @@ export default function GameDetailsPage() {
       })
       const data = await response.json()
       setState(prevState => ({ ...prevState, game: data }))
-      showSuccessToast(`Game status changed to ${status}`)
+      const statusMessage = statusLabels[status]
+      if (statusMessage) {
+        showSuccessToast(`${statusMessage} status changed successfully`)
+      } else {
+        showSuccessToast('Unknown status change')
+      }
     } catch (e) {
       showErrorToast(e)
     } finally {
@@ -89,6 +101,44 @@ export default function GameDetailsPage() {
         submittingState: { ...prevState.submittingState, _delete: false },
       }))
     }
+  }
+
+  const handleSubmitHours = async (e: React.FormEvent<HTMLFormElement>, hours: number | '') => {
+    e.preventDefault()
+    setState(prevState => ({
+      ...prevState,
+      submittingState: { ...prevState.submittingState, _hours: true },
+    }))
+    console.log('Submitting hours:', hours)
+
+    try {
+      const response = await fetch(`/api/hours`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          gameId: state.game?._id,
+          hours,
+        }),
+      })
+      const data = await response.json()
+      console.log('Hours submitted:', data)
+    } catch (e) {
+      showErrorToast(e)
+    } finally {
+      setState(prevState => ({
+        ...prevState,
+        submittingState: { ...prevState.submittingState, _hours: false },
+      }))
+      setState(prevState => ({ ...prevState, showAddHoursModal: false }))
+      fetchGame() // Refresh game data to show updated hours
+      showSuccessToast('Completion hours added! 👍')
+    }
+  }
+
+  const handleToggleAddHoursModal = (value: boolean) => {
+    setState(prevState => ({
+      ...prevState,
+      showAddHoursModal: value,
+    }))
   }
 
   const showErrorToast = (error: unknown) => {
@@ -121,8 +171,8 @@ export default function GameDetailsPage() {
 
   return (
     <div>
-      <Link href="/my-library" className="flex items-center pb-3 text-sm">
-        <CircleArrowLeft className="mr-2 text-muted-foreground" size={16} /> Back to Library
+      <Link href="/my-library" className="flex items-center pb-3 text-sm text-muted-foreground">
+        <CircleArrowLeft className="mr-2" size={16} /> Back to Library
       </Link>
 
       <GameHeader game={state.game} />
@@ -133,6 +183,7 @@ export default function GameDetailsPage() {
             game={state.game}
             handleStatus={handleStatus}
             handleDelete={handleDelete}
+            setShowAddHoursModal={handleToggleAddHoursModal}
             isHiddenOnMobile={true}
             submittingState={state.submittingState}
           />
@@ -143,9 +194,22 @@ export default function GameDetailsPage() {
           screenshots={state.game.screenshots}
           handleStatus={handleStatus}
           handleDelete={handleDelete}
+          setShowAddHoursModal={handleToggleAddHoursModal}
           submittingState={state.submittingState}
         />
       </div>
+
+      {/* Add Hours Modal */}
+      {state.showAddHoursModal && (
+        <AddHoursModal
+          setShowAddHours={handleToggleAddHoursModal}
+          showAddHoursModal={state.showAddHoursModal}
+          handleSubmitHours={handleSubmitHours}
+          searchText={state.game.name}
+          currentHours={state.game._gameplayHours.gameplayMain || ''}
+          submittingState={state.submittingState}
+        />
+      )}
     </div>
   )
 }

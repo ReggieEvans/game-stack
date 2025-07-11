@@ -34,7 +34,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
         </div>
         <div className="w-full max-w-md bg-card rounded-2xl shadow-md p-8 text-foreground">
           <div className="flex flex-col justify-center items-center py-4 space-y-6">
-            <Image src="/images/logo-text-507-44.png" alt="ShameStack Logo" width={624} height={126} priority />
+            <Image src="/images/logo-556-57.png" alt="ShameStack Logo" width={556} height={57} priority />
           </div>
           {children}
         </div>

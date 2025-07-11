@@ -37,7 +37,7 @@ export default function Header() {
           <SheetContent side="left" className="space-y-12 p-6">
             <SheetHeader>
               <SheetTitle>
-                <Image src="/images/logo-text-507-81.png" alt="Logo" width={300} height={26} priority />
+                <Image src="/images/logo-556-57.png" alt="Logo" width={300} height={26} priority />
               </SheetTitle>
             </SheetHeader>
 
@@ -45,12 +45,7 @@ export default function Header() {
               <Link href="/">Home</Link>
               {isAuthenticated ? (
                 links.map(({ href, label }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    onClick={() => setOpen(false)}
-                    className={`block ${pathname === href ? 'text-primary' : 'text-muted-foreground'}`}
-                  >
+                  <Link key={href} href={href} onClick={() => setOpen(false)} className="block text-foreground">
                     {label}
                   </Link>
                 ))
@@ -86,7 +81,7 @@ export default function Header() {
 
         {/* Brand */}
         <Link href="/" className="text-lg font-heading font-semibold uppercase">
-          <Image src="/images/logo-text-507-81.png" alt="Logo" width={300} height={26} priority />
+          <Image src="/images/logo-556-57.png" alt="Logo" width={300} height={26} priority />
         </Link>
       </div>
 
@@ -98,8 +93,8 @@ export default function Header() {
               <Link
                 key={href}
                 href={href}
-                className={`text-sm font-medium hover:underline ${
-                  pathname === href ? 'text-muted-foreground' : 'text-foreground'
+                className={`text-sm font-medium hover:underline text-foreground ${
+                  pathname === href ? 'font-bold' : 'font-medium'
                 }`}
               >
                 {label}
@@ -108,7 +103,7 @@ export default function Header() {
             <ThemeToggle />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center gap-1 text-sm text-muted-foreground">
+                <Button variant="ghost" className="flex items-center gap-1 text-sm text-foreground">
                   {user.username}
                   <ChevronDown className="w-4 h-4" />
                 </Button>
@@ -130,9 +125,6 @@ export default function Header() {
             <Link href="/login" className="text-sm font-medium text-muted-foreground hover:underline">
               <button className="btn-primary-round">Login</button>
             </Link>
-            {/* <Link href="/signup" className="text-sm font-medium text-muted-foreground hover:underline">
-              Register
-            </Link> */}
           </>
         )}
       </div>

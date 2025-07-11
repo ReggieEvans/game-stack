@@ -5,7 +5,7 @@
 @layer base {
   :root {
     /** Base colors */
-    --background: #ffffff;
+    --background: #f6f6f6;
     --foreground: #121b2e;
 
     /** Theme primary colors */
@@ -32,7 +32,7 @@
     --surface-tonal-a40: #bcbdc5;
     --surface-tonal-a50: #afb1b6;
 
-    --card: #f6f6f6;
+    --card: #ffffff;
 
     --card-foreground: #121b2e;
 
@@ -167,6 +167,10 @@
 
 .header_text {
   @apply mt-5 text-4xl font-black leading-[1.15] text-black sm:text-6xl;
+}
+
+.dark_gradient {
+  @apply bg-gradient-to-b from-slate-400 to-slate-700 to-95% bg-clip-text text-transparent;
 }
 
 .slate_gradient {

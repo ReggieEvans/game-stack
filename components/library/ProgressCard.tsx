@@ -42,11 +42,11 @@ export default function ProgressCard({
   return (
     <div className="flex flex-col bg-card py-2 px-4 mb-1 border border-border rounded-md w-full md:w-1/2 text-white">
       <div className="flex flex-col sm:flex-row justify-between pt-4 sm:items-center">
-        <div className="text-3xl font-bold slate_gradient">
+        <div className="text-3xl font-bold dark_gradient dark:slate_gradient">
           {unit ? Math.round(percentage) : value}
           {unit && <span className="text-lg"> {unit}</span>} <span className="text-lg">{title}</span>
         </div>
-        <div className="font-bold slate_gradient">
+        <div className="font-bold dark_gradient dark:slate_gradient">
           {value} <span className="text-sm">OF </span>
           {total}
         </div>

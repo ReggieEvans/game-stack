@@ -15,6 +15,7 @@ export default function GameSummary({
   screenshots,
   handleStatus,
   handleDelete,
+  setShowAddHoursModal,
   submittingState,
 }: {
   game: GameType
@@ -22,6 +23,7 @@ export default function GameSummary({
   screenshots: { url: string }[]
   handleStatus: (status: string, id: string) => void
   handleDelete: (id: string) => void
+  setShowAddHoursModal: (value: boolean) => void
   submittingState: {
     _isInProgress: boolean
     _isCompleted: boolean
@@ -53,9 +55,9 @@ export default function GameSummary({
       {/* Game Title Mobile  */}
       <div className="flex justify-between gap-4 items-start md:hidden mt-8 border-b border-border pb-4">
         <div className="flex flex-col gap-1">
-          <div className="text-4xl font-black text-white mb-1">{game.name}</div>
-          <div className="text-sm text-white">{companies}</div>
-          <div className="text-sm text-white">Hours to complete: {getCompletionHours(game)}</div>
+          <div className="text-4xl font-black text-foreground mb-1">{game.name}</div>
+          <div className="text-sm text-foreground">{companies}</div>
+          <div className="text-sm text-foreground">Hours to complete: {getCompletionHours(game)}</div>
         </div>
         <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
           <PopoverTrigger asChild>
@@ -72,6 +74,10 @@ export default function GameSummary({
               }}
               handleDelete={id => {
                 handleDelete(id)
+                setPopoverOpen(false)
+              }}
+              setShowAddHoursModal={() => {
+                setShowAddHoursModal(true)
                 setPopoverOpen(false)
               }}
               isHiddenOnMobile={false}
@@ -94,14 +100,14 @@ export default function GameSummary({
       </div>
 
       <div>
-        <div className="slate_gradient font-black text-2xl md:text-4xl mb-2">Summary</div>
+        <div className="dark:slate_gradient dark_gradient font-black text-2xl md:text-4xl mb-2">Summary</div>
         <p className="mb-6">{summary}</p>
       </div>
 
       <div>
         {screenshots?.length > 0 && (
           <>
-            <div className="slate_gradient font-black text-2xl md:text-4xl mb-2">Screenshots</div>
+            <div className="dark:slate_gradient dark_gradient font-black text-2xl md:text-4xl mb-2">Screenshots</div>
             <div className="flex gap-2 flex-wrap">
               {screenshots.map((s, i) => (
                 <Image

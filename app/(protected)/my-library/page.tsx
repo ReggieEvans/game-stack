@@ -98,7 +98,7 @@ export default function MyLibraryPage() {
     <section className="w-full">
       <div className="w-full flex justify-between items-center">
         <h1 className="head_text text-left sm:mb-2">
-          <span className="slate_gradient header_text">MY LIBRARY</span>
+          <span className="dark:slate_gradient dark_gradient header_text">MY LIBRARY</span>
         </h1>
         <Link href="/add-games">
           <button type="button" aria-label="Add a game" className="flex gap-2 btn-primary-round font-bold">
