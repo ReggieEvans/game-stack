@@ -1,12 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { connectToDB } from '@/lib/mongodb'
 import Game from '@/models/Game'
 
-interface Params {
-  id: string
-}
-
-// @route   GET /api/games/:id/all
-export async function GET(req: Request, context: { params: Params }) {
+// @route   GET /api/library/:id
+export async function GET(req: Request, context: any) {
   const params = await context.params
 
   try {

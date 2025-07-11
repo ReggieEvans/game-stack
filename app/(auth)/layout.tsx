@@ -17,12 +17,12 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
             DEMO LOGIN
           </h2>
           <div className="px-4 py-4">
-            <p>Registering is disabled for the demo. Please use the login credentials below to sign into ShameStack.</p>
+            <p>Registering is disabled for the demo. Please use the login credentials below to sign into Game Stack.</p>
             <p>- - - - - - -</p>
             <div className="flex flex-col">
               <div className="flex gap-2">
                 <span className="font-bold">Email:</span>
-                <CopyText text="demo@shamestack.com" />
+                <CopyText text="demo@gamestack.com" />
               </div>
               <div className="flex gap-2">
                 <span className="font-bold">Password:</span>
@@ -34,7 +34,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
         </div>
         <div className="w-full max-w-md bg-card rounded-2xl shadow-md p-8 text-foreground">
           <div className="flex flex-col justify-center items-center py-4 space-y-6">
-            <Image src="/images/logo-556-57.png" alt="ShameStack Logo" width={556} height={57} priority />
+            <Image src="/images/logo-556-57.png" alt="Game Stack Logo" width={556} height={57} priority />
           </div>
           {children}
         </div>

@@ -1,13 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { connectToDB } from '@/lib/mongodb'
 import Game from '@/models/Game'
 import { Types } from 'mongoose'
 
-interface Params {
-  id: string
-}
-
 // @route   GET /api/games/:id
-export const GET = async (_req: Request, context: { params: Params }) => {
+export const GET = async (_req: Request, context: any) => {
   const params = await context.params
 
   try {
@@ -38,7 +35,7 @@ export const GET = async (_req: Request, context: { params: Params }) => {
 
 // @desc    Update User Game
 // @route   PATCH /api/games/:id
-export const PATCH = async (req: Request, context: { params: Params }) => {
+export const PATCH = async (req: Request, context: any) => {
   const { userId, status } = await req.json()
   const params = await context.params
 
@@ -62,7 +59,7 @@ export const PATCH = async (req: Request, context: { params: Params }) => {
 
 // @desc    Delete User Game
 // @route   DELETE /api/games/:id
-export const DELETE = async (_req: Request, context: { params: Params }) => {
+export const DELETE = async (_req: Request, context: any) => {
   const params = await context.params
 
   try {

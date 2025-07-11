@@ -73,13 +73,14 @@ export const POST = async (request: Request): Promise<Response> => {
   const handleRateLimiting = async <T>(fn: () => Promise<T>, retries = 3, delay = 1000): Promise<T> => {
     try {
       return await fn()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (retries === 0) throw error
 
       if (error.response?.status === 429) {
         const response = error.response
-        const retryAfter = parseInt(response?.headers['retry-after'] || '1000', 10) * 1000
-        const delayTime = isNaN(retryAfter) ? 1000 : retryAfter
+        const retryAfter = parseInt(response?.headers['retry-after'] || delay.toString(), 10) * 1000
+        const delayTime = isNaN(retryAfter) ? delay : retryAfter
         console.log(`Rate limited, retrying in ${delayTime / 1000}s...`)
 
         await new Promise(resolve => setTimeout(resolve, delayTime))

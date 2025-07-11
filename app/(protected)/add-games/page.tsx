@@ -7,7 +7,7 @@ import { useToast } from '@/hooks/use-toast'
 import { Game as GameType } from '@/types/game'
 import { CircleArrowLeft } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 const AddGames = () => {
   const user = useUser()
@@ -24,43 +24,46 @@ const AddGames = () => {
     index: null,
   })
 
-  const fetchGames = async (text = '') => {
-    setIsLoading(true)
-    try {
-      const response = await fetch('/api/igdb', {
-        method: 'POST',
-        body: JSON.stringify({
-          searchText: text,
-        }),
-      })
+  const fetchGames = useCallback(
+    async (text = '') => {
+      setIsLoading(true)
+      try {
+        const response = await fetch('/api/igdb', {
+          method: 'POST',
+          body: JSON.stringify({
+            searchText: text,
+          }),
+        })
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch games')
+        if (!response.ok) {
+          throw new Error('Failed to fetch games')
+        }
+
+        const res = await response.json()
+        setGames(res.data.games || [])
+      } catch (error) {
+        toast({
+          title: 'Something went wrong! 👎',
+          description: error instanceof Error ? error.message : 'An unknown error occurred',
+          variant: 'destructive',
+        })
+      } finally {
+        setIsLoading(false)
       }
-
-      const res = await response.json()
-      setGames(res.data.games || [])
-    } catch (error) {
-      toast({
-        title: 'Something went wrong! 👎',
-        description: error instanceof Error ? error.message : 'An unknown error occurred',
-        variant: 'destructive',
-      })
-    } finally {
-      setIsLoading(false)
-    }
-  }
+    },
+    [toast],
+  )
 
   useEffect(() => {
     fetchGames()
 
-    // Cleanup searchTimeout when component unmounts
+    // Cleanup timeout on unmount
     return () => {
       if (searchTimeout) {
         clearTimeout(searchTimeout)
       }
     }
-  }, [])
+  }, [fetchGames, searchTimeout])
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (searchTimeout) {

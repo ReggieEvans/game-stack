@@ -6,7 +6,7 @@ type GameInput = {
   id: number
   name: string
   first_release_date: number
-  [key: string]: any // allow additional properties
+  [key: string]: unknown
 }
 
 type RequestBody = {

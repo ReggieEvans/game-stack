@@ -11,7 +11,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Button } from '@/components/ui/button'
 
-import { initialState, libraryReducer, HoursState } from '../../../hooks/useLibraryReducer'
+import { initialState, libraryReducer, HoursState } from '@/hooks/use-library-reducer'
 import ProgressCard from '@/components/library/ProgressCard'
 import FilterButton from '@/components/library/FilterButton'
 import { PopoverClose } from '@radix-ui/react-popover'
@@ -57,7 +57,7 @@ export default function MyLibraryPage() {
     const fetchGames = async () => {
       try {
         setIsLoading(true)
-        const response = await fetch(`/api/games/${user?.id}/all`)
+        const response = await fetch(`/api/library/${user?.id}`)
         if (!response.ok) throw new Error('Failed to fetch games')
         const data: GameType[] = await response.json()
 
