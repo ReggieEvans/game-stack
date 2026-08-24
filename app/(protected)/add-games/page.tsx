@@ -7,7 +7,7 @@ import { useToast } from '@/hooks/use-toast'
 import { Game as GameType } from '@/types/game'
 import { CircleArrowLeft } from 'lucide-react'
 import Link from 'next/link'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 const AddGames = () => {
   const user = useUser()
@@ -15,7 +15,7 @@ const AddGames = () => {
   const [games, setGames] = useState<GameType[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [searchText, setSearchText] = useState('')
-  const [searchTimeout, setSearchTimeout] = useState<ReturnType<typeof setTimeout> | null>(null)
+  const searchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [submitting, setIsSubmitting] = useState<{
     isSubmitting: boolean
     index: number | null
@@ -59,24 +59,22 @@ const AddGames = () => {
 
     // Cleanup timeout on unmount
     return () => {
-      if (searchTimeout) {
-        clearTimeout(searchTimeout)
+      if (searchTimeout.current) {
+        clearTimeout(searchTimeout.current)
       }
     }
-  }, [fetchGames, searchTimeout])
+  }, [fetchGames])
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    if (searchTimeout) {
-      clearTimeout(searchTimeout)
+    if (searchTimeout.current) {
+      clearTimeout(searchTimeout.current)
     }
     setSearchText(e.target.value)
 
     // Debounce method
-    setSearchTimeout(
-      setTimeout(() => {
-        fetchGames(e.target.value)
-      }, 500),
-    )
+    searchTimeout.current = setTimeout(() => {
+      fetchGames(e.target.value)
+    }, 500)
   }
 
   const handleAddGame: {
